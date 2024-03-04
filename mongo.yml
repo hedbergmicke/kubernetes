@@ -19,3 +19,15 @@ spec:
         image: nginx:1.14.2
         ports:
         - containerPort: 80
+    env:
+    - name: USER_NAME
+      valueFrom:
+        secretKeyRef:
+          name: mongo-secret
+          key: mongo-user
+    - name: USER_PWD
+    - name: DB_URL
+      valueFrom:
+        configMapKeyRef:
+          name: mongo-config
+          key: mongo-url
