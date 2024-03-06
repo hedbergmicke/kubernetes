@@ -16,18 +16,30 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: nginx:1.14.2
+        image: mongo:5.0
         ports:
-        - containerPort: 80
-    env:
-    - name: USER_NAME
-      valueFrom:
-        secretKeyRef:
-          name: mongo-secret
-          key: mongo-user
-    - name: USER_PWD
-    - name: DB_URL
-      valueFrom:
-        configMapKeyRef:
-          name: mongo-config
-          key: mongo-url
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-user
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
