@@ -50,7 +50,11 @@ spec: type: NodePort
 * kubectl describe ...
 * kubectl get service (för att se port)
 * kubectl get node -o wide (för att se nodens ip)
+* kubectl exec -it <pod_name> -- env
+* nc -zv 10.42.1.22 3000 (check port)
 
 # Mer att utvärdera
+* volumes
 * ingres privat ip
 * secretshantering
+* gethub
