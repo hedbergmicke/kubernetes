@@ -1,33 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-mh-deployment
+  name: mh-web-deployment
   labels:
-    app: hello-mh
+    app: mh-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-mh
+      app: mh-web
   template:
     metadata:
       labels:
-        app: hello-mh
+        app: mh-web
     spec:
       containers:
       - name: hello-mh
         image: nginx
         ports:
         - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: mh-web-volume
+      volumes:
+      - name: mh-web-volume
+        nfs:
+          server: atom
+          path: /mnt/data1/kubernetes/mh-web
+          readOnly: true
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-mh-service
+  name: mh-web-service
 spec:
   type: NodePort
   selector:
-    app: hello-mh
+    app: mh-web
   ports:
     - port: 80
       # By default and for convenience, the `targetPort` is set to
