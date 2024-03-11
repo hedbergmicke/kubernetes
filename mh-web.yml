@@ -21,13 +21,19 @@ spec:
         - containerPort: 80
         volumeMounts:
         - mountPath: /usr/share/nginx/html
-          name: mh-web-volume
+          name: nfs-pvc-mh-web-1g
       volumes:
-      - name: mh-web-volume
-        nfs:
-          server: atom
-          path: /mnt/data1/kubernetes/mh-web
-          readOnly: true
+      - name: nfs-pvc-mh-web-1g
+        persistentVolumeClaim:
+          claimName: nfs-pvc-mh-web-1g
+
+        #name: mh-web-volume
+#      volumes:
+#      - name: mh-web-volume
+#        nfs:
+#          server: atom
+#          path: /mnt/data1/kubernetes/mh-web
+#          readOnly: true
 ---
 apiVersion: v1
 kind: Service
