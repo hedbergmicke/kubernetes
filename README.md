@@ -64,7 +64,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.3/manif
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.3/manifests/metallb.yaml
 
 ## Simple nginx deployment med LoadBalancer (extern ip)
-kubectl create deploy nginx --image=nginx
-kubectl expose deploy nginx --port=80 --target-port=80 --type=LoadBalancer
-kubectl get svc nginx
+kubectl create deploy nginx --image=nginx\
+kubectl expose deploy nginx --port=80 --target-port=80 --type=LoadBalancer\
+kubectl get svc nginx\
 
